@@ -1,0 +1,86 @@
+plumpy - a light python webframework
+
+= Router
+
+Let's you have a module 'hello' with some functions, like this one:
+
+# hello.py
+
+def index():
+    return 'index'
+
+def new():
+    return 'new'
+
+def create():
+    return 'create'
+
+...
+
+== Resource
+
+Create a router with default paths. This code:
+
+import hello
+
+router = Router()
+router.resource('hello', hello)
+
+simply make fallowing urls:
+
+hello.new     GET   /hello/new
+hello.update  POST  /hello/(.+)
+hello.index   GET   /hello
+hello.delete  POST  /hello/(.+)/delete
+hello.create  POST  /hello
+hello.show    GET   /hello/(.+)
+hello.edit    GET   /hello/(.+)/edit
+
+== Root path
+
+To make a root url use:
+
+router.root(hello)
+
+== Setting names
+
+It's not required to use the same name in url as a function name.
+
+router.resource('hello', hello, names={'index': 'all', '([0-9]+)/show': 'show'})
+
+...
+hello.index   GET   /hello/all
+hello.show    GET   /hello/([0-9]+)/show
+...
+
+== Setting methods
+
+HTTP has two difference request methods: GET and POST. You can set what method
+use your function:
+
+router.resource('hello', hello, methods={'own': 'get'})
+
+hello.own    GET   /hello/own
+
+== Only
+
+Some functions should be available but another - not. Use 'only' to list
+functions which you use:
+
+router.resource('hello', hello, only=['index', 'new'])
+
+hello.index   GET   /hello/all
+hello.new     GET   /hello/new
+
+Rest functions are hidden in router.
+
+== Hide
+
+Hide is familiar to only but you hides functions in the list:
+
+router.resource('hello', hello, hide=['index', 'edit', 'new', 'show'])
+
+hello.create  POST   /hello
+hello.update  POST   /hello/(.+)
+hello.delete  POST   /hello/(.+)/delete
+
