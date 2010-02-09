@@ -84,3 +84,23 @@ hello.create  POST   /hello
 hello.update  POST   /hello/(.+)
 hello.delete  POST   /hello/(.+)/delete
 
+== Connect
+
+You can write your own url and connect it with function in module.
+
+router.connect('/my/own/url', hello, 'own', method='get')
+
+hello.own     GET   /my/own/url
+
+== Matching url
+
+Matching url is as simple as making them.
+
+router.match('/hello/Lucas', method='get')
+
+should return a tuple like this one:
+
+(hello, 'show', ('Lucas',))
+
+First argument is a module, secound is a function name as a string and last one
+is a tuple or dict - it depends you use regular expression like '(?P<name>[a-z]+)'.
