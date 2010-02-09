@@ -93,7 +93,6 @@ class  RouterTestCase(unittest.TestCase):
         import hello
         router = Router()
         router.resource('hello', hello)
-        print str(router)
         assert str(router)
 
 if __name__ == '__main__':
