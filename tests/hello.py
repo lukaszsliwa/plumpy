@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 
 def index():
-    return 'index'
+    return unicode('index')
 
 def new():
-    return 'new'
+    return unicode('new')
 
 def create():
-    return 'create'
+    return unicode('create')
 
 def show(id):
-    return 'show %s' % str(id)
+    return unicode('show %s' % str(id))
 
 def edit(id):
-    return 'edit %s' % str(id)
+    return unicode('edit %s' % str(id))
 
 def update(id):
-    return 'update %s' % str(id)
+    return unicode('update %s' % str(id))
 
 def delete(id):
-    return 'delete %s' % str(id)
+    return unicode('delete %s' % str(id))
 
 def sweet():
-    return 'sweet'
+    return unicode('sweet')
