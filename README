@@ -100,7 +100,7 @@ router.match('/hello/Lucas', method='get')
 
 should return a tuple like this one:
 
-(hello, 'show', ('Lucas',))
+(hello, hello.show, ('Lucas',))
 
-First argument is a module, secound is a function name as a string and last one
+First argument is a module or class instance, secound is a function of this module or class and last one
 is a tuple or a dict - if it depends you use regular expression like '(?P<name>[a-z]+)'.

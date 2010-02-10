@@ -30,7 +30,6 @@ class Router(object):
         '''
         Method adds standard functions to routing
         '''
-        assert isinstance(module, types.ModuleType)
         assert isinstance(name, types.StringType)
 
         name = name.strip('/')
@@ -45,7 +44,7 @@ class Router(object):
 
         for function, (path, method) in functions.items():
             pattern = '/'.join([name, path])
-            self.connect(pattern, module, function, method)
+            self.connect(pattern, module, getattr(module, function), method)
 
     def connect(self, path, module, function, method='get'):
         '''
@@ -151,8 +150,8 @@ class Router(object):
 
     def __str__(self):
         output = ''
-        width = max([len(module.__name__) + len(function) for (m,p), (module, function) in self.routing.items()]) + 2
+        width = max([len(module.__name__) + len(function.__name__) for (m,p), (module, function) in self.routing.items()]) + 2
         for (method, path), (module, function) in self.routing.items():
-            d = '%s.%s' % (module.__name__, function)
+            d = '%s.%s' % (module.__name__, function.__name__)
             output += '%s %s %s\n' % (d.ljust(width), method.upper().ljust(5), path)
         return output

@@ -23,3 +23,9 @@ def delete(id):
 
 def sweet():
     return unicode('sweet')
+
+def person():
+    return unicode('person')
+
+def own():
+    pass
