@@ -97,6 +97,13 @@ class  RouterTestCase(unittest.TestCase):
         router.connect('/my-sweet-plum', hello, hello.sweet)
         self.assertEqual(router.match('/my-sweet-plum'), (hello, hello.sweet, ()), '/my-sweet-plum to sweet')
 
+    def test_urls(self):
+        import hello
+        router = Router()
+        router.resource('hello', hello)
+        for method, path in router.urls():
+            self.assertTrue(router.match(path, method=method))
+
     def test_str(self):
         import hello
         router = Router()

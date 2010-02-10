@@ -148,6 +148,13 @@ class Router(object):
                 return tuple([uni_or_int(item) for item in params_a])
         return None
 
+    def urls(self):
+        '''
+        Generator returns (method, path).
+        '''
+        for (method, path) in self.routing.keys():
+            yield method, path
+
     def __str__(self):
         output = ''
         width = max([len(module.__name__) + len(function.__name__) for (m,p), (module, function) in self.routing.items()]) + 2
