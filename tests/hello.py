@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from plumpy import render
+
 def index():
-    return unicode('index')
+    render(text='This is index', format='html')
 
 def new():
     return unicode('new')
@@ -28,4 +30,4 @@ def person():
     return unicode('person')
 
 def own():
-    pass
+    return unicode('own')
