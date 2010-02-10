@@ -41,9 +41,19 @@ class Plum(object):
                     function(**args)
             else:
                 raise webob.exc.HTTPNotFound('Page %s doesn\'t exists.' % request.path_info).exception
-        except webob.exc.HTTPException, e:
+        except (webob.exc.HTTPException), e:
             return e(environ, start_response)
+        except (Render, Redirect), r:
+            return r.response(environ, start_response)
         return response(environ, start_response)
+
+class Render(Exception):
+    def __init__(self, response):
+        self.response = response
+
+class Redirect(Exception):
+    def __init__(self, response):
+        self.response = response
 
 def render(text, status=200, format='html'):
     '''
@@ -55,10 +65,10 @@ def render(text, status=200, format='html'):
         'xml': 'application/xml',
         'json': 'application/json'
     }
-    raise webob.exc.status_map[int(status)](body=text, content_type=formats[format])
+    raise Render(Response(body=text, status_int=int(status), content_type=formats[format]))
 
 def redirect(to, status=303):
     '''
     Function redirects to given location
     '''
-    raise webob.exc.status_map[int(status)](location=to)
+    raise Redirect(Response(location=to, status_int=int(status)))

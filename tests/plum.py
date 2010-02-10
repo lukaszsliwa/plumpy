@@ -2,6 +2,7 @@
 
 import unittest
 from plumpy import Router, Plum, render, redirect
+from plumpy.plum import Render, Redirect
 from webob import Request
 import webob.exc
 
@@ -34,10 +35,10 @@ class  PlumTestCase(unittest.TestCase):
         self.assertEqual(Request.blank('/123').get_response(plum).status, not_found)
 
     def test_render(self):
-        self.assertRaises(webob.exc.HTTPOk, render, text='text')
+        self.assertRaises(Render, render, text='text')
 
     def test_redirect(self):
-        self.assertRaises(webob.exc.HTTPSeeOther, redirect, to='/')
+        self.assertRaises(Redirect, redirect, to='/')
 
 if __name__ == '__main__':
     unittest.main()
